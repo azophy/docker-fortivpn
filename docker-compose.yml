@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+    volumes:
+    - .:/app
+    ports:
+    - 8080:8000
+    env_file:
+    - .env
+    # watchout! very dangerous!
+    # ref: https://phoenixnap.com/kb/docker-privileged
+    privileged: true
+    command: sh -c "openfortivpn -u $VPN_NAME -p $VPN_PASS $VPN_HOST:$VPN_PORT --trusted-cert $VPN_CERT --persistent 60 & tail -f /dev/null"
+
