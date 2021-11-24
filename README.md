@@ -25,3 +25,33 @@ At work, sometimes I would need to connect to private Fortinet VPN connection fo
     ```
   - copy the `trusted-cert` field into your .env file
   - uncomment the command section in your docker-compose.yml, re-run it. You should good to go
+
+## Exposing/Forwarding other host to outside
+
+1. Create ssh ke pair in container. Use could use this tutorial from Gitlab : https://docs.gitlab.com/ee/ssh/
+
+   ```
+   $ docker-compose exec app ssh-keygen -t ed25519 -C "test@example.com"  
+   ```
+2. Start ssh forwarding
+
+  ```
+  $ docker-compose exec app ssh -R 80:<remote ip>:<remote port> localhost.run
+  ```
+
+3. Or if you want to forward it to your host network:
+
+  ```
+  # find all ip address ranges in your container. for example 172.26.x.x or 172.14.x.x
+  $ docker-compose exec app ip addr 
+
+  # in your host, find your local docker bridge with matching ranges
+  $ ip addr
+
+  # create a tunnel from your container to you local docker bridge
+  $ docker-compose exec app ssh -NR <host port>:<remote ip>:<remote port> <user>@<host ip>
+
+  # then your new tunnel should be accessible from `localhost:<host port>`
+  $ curl localhost:<host port>
+  ```
+
