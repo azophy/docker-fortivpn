@@ -7,6 +7,12 @@ At work, sometimes I would need to connect to private Fortinet VPN connection fo
 - as starting point for building services which would connect to Fortinet based VPN
 - as a shell which connected to such VPN. This prevent us from connecting our host computer to VPN network, thus preventing some undesired case such as slow connections or blocked websites inside VPN.
 
+## How to use as vpn container
+
+1. Edit and save `example.conf` as `<VPN NAME>.conf`
+2. `docker compose build`
+3. `VPN_NAME=<VPN NAME> docker compose up`
+
 ## Gotchas
 - For this container to work, it would need a privileged container. I haven't succeed in using other methods, so you should carefully watch for this danger if you wish to use this container. Reference: https://phoenixnap.com/kb/docker-privileged
 - the default process for this container is a `tail -f /dev/null`. So you would not see any log when running it. After your container has been attached, you should good to go.

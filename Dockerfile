@@ -6,4 +6,6 @@ RUN apk --no-cache add openfortivpn \
 RUN apk --no-cache add openssh
 RUN apk --no-cache add tmux
 
+WORKDIR app
+
 CMD ["tail", "-f", "/dev/null"]

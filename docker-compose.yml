@@ -13,5 +13,5 @@ services:
     # watchout! very dangerous!
     # ref: https://phoenixnap.com/kb/docker-privileged
     privileged: true
-    command: sh -c "openfortivpn -u $VPN_NAME -p $VPN_PASS $VPN_HOST:$VPN_PORT --trusted-cert $VPN_CERT --persistent 60 & tail -f /dev/null"
+    command: sh -c "openfortivpn -c $VPN_NAME.conf & tail -f /dev/null"
 
